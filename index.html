@@ -1,0 +1,1241 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#2563eb">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="MoneyFlow">
+  <link rel="manifest" href="data:application/json;base64,ewogICJuYW1lIjogIk1vbmV5RmxvdyAtIEdlc3Rpb25hIHR1IERpbmVybyIsCiAgInNob3J0X25hbWUiOiAiTW9uZXlGbG93IiwKICAic3RhcnRfdXJsIjogIi4iLAogICJkaXNwbGF5IjogInN0YW5kYWxvbmUiLAogICJiYWNrZ3JvdW5kX2NvbG9yIjogIiNmNmY3ZmIiLAogICJ0aGVtZV9jb2xvciI6ICIjMjU2M2ViIiwKICAiaWNvbnMiOiBbCiAgICB7CiAgICAgICJzcmMiOiAiZGF0YTppbWFnZS9zdmcreG1sLCUzQ3N2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHZpZXdCb3g9JzAgMCAxMDAgMTAwJyUzRSUzQ3JlY3QgZmlsbD0nJTIzMjU2M2ViJyB3aWR0aD0nMTAwJyBoZWlnaHQ9JzEwMCcgcng9JzIwJy8lM0UlM0N0ZXh0IHg9JzUwJTI1JyB5PSc2NSUyNScgZm9udC1zaXplPSc1MCcgdGV4dC1hbmNob3I9J21pZGRsZSclM0UlRjAlOUYlOTIlQjglM0MvdGV4dCUzRSUzQy9zdmclM0UiLAogICAgICAic2l6ZXMiOiAiMTkyeDE5MiIsCiAgICAgICJ0eXBlIjogImltYWdlL3N2Zyt4bWwiCiAgICB9LAogICAgewogICAgICAic3JjIjogImRhdGE6aW1hZ2Uvc3ZnK3htbCwlM0NzdmcgeG1sbnM9J2h0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnJyB2aWV3Qm94PScwIDAgMTAwIDEwMCclM0UlM0NyZWN0IGZpbGw9JyUyMzI1NjNlYicgd2lkdGg9JzEwMCcgaGVpZ2h0PScxMDAnIHJ4PScyMCcvJTNFJTNDdGV4dCB4PSc1MCUyNScgeT0nNjUlMjUnIGZvbnQtc2l6ZT0nNTAnIHRleHQtYW5jaG9yPSdtaWRkbGUnJTNFJUYwJTlGJTkyJUI4JTNDL3RleHQlM0UlM0Mvc3ZnJTNFIiwKICAgICAgInNpemVzIjogIjUxMng1MTIiLAogICAgICAidHlwZSI6ICJpbWFnZS9zdmcreG1sIgogICAgfQogIF0KfQ==">
+  <title>MoneYOU – Gestiona tu Dinero</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #f6f7fb;
+      --card: #ffffff;
+      --primary: #2563eb;
+      --primary-dark: #1d4ed8;
+      --secondary: #0f172a;
+      --muted: #64748b;
+      --success: #16a34a;
+      --danger: #dc2626;
+      --warning: #f59e0b;
+      --purple: #9333ea;
+    }
+
+    * {
+      box-sizing: border-box;
+      font-family: 'Inter', sans-serif;
+    }
+
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--secondary);
+      -webkit-tap-highlight-color: transparent;
+      touch-action: manipulation;
+    }
+
+    header {
+      padding: 40px 20px;
+      text-align: center;
+      background: linear-gradient(135deg, var(--primary), var(--primary-dark), var(--purple));
+      color: white;
+      position: relative;
+      overflow: hidden;
+    }
+
+    header::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      right: -10%;
+      width: 300px;
+      height: 300px;
+      background: rgba(255,255,255,0.1);
+      border-radius: 50%;
+    }
+
+    header h1 {
+      margin: 0;
+      font-size: 2.5rem;
+      font-weight: 800;
+      position: relative;
+      z-index: 1;
+    }
+
+    header p {
+      margin-top: 8px;
+      opacity: 0.95;
+      font-size: 1.05rem;
+      position: relative;
+      z-index: 1;
+    }
+
+    main {
+      max-width: 1200px;
+      margin: auto;
+      padding: 20px;
+      display: grid;
+      gap: 30px;
+    }
+
+    .balance-inicial-banner {
+      background: linear-gradient(135deg, #fbbf24, #f59e0b);
+      color: white;
+      padding: 20px;
+      border-radius: 16px;
+      text-align: center;
+      box-shadow: 0 10px 25px rgba(245, 158, 11, 0.3);
+      cursor: pointer;
+      transition: transform 0.2s;
+    }
+
+    .balance-inicial-banner:hover {
+      transform: translateY(-2px);
+    }
+
+    .balance-inicial-banner h3 {
+      margin: 0 0 10px 0;
+      font-size: 1.2rem;
+    }
+
+    .balance-inicial-banner p {
+      margin: 0;
+      font-size: 0.9rem;
+      opacity: 0.95;
+    }
+
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 20px;
+    }
+
+    .card {
+      background: var(--card);
+      padding: 22px;
+      border-radius: 16px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.06);
+      transition: transform 0.2s;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 4px;
+      background: linear-gradient(90deg, var(--primary), var(--purple));
+    }
+
+    .card:hover {
+      transform: translateY(-2px);
+    }
+
+    .card h3 {
+      margin: 0;
+      font-size: 0.9rem;
+      color: var(--muted);
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .card p {
+      margin-top: 10px;
+      font-size: 2rem;
+      font-weight: 800;
+    }
+
+    .success { color: var(--success); }
+    .danger { color: var(--danger); }
+    .warning { color: var(--warning); }
+
+    .card-total-acumulado {
+      background: linear-gradient(135deg, var(--success), #15803d);
+      color: white;
+    }
+
+    .card-total-acumulado::before {
+      background: rgba(255,255,255,0.3);
+    }
+
+    .card-total-acumulado h3 {
+      color: rgba(255,255,255,0.9);
+    }
+
+    .card-total-negativo {
+      background: linear-gradient(135deg, var(--danger), #b91c1c) !important;
+      color: white;
+    }
+
+    .card-total-negativo::before {
+      background: rgba(255,255,255,0.3) !important;
+    }
+
+    .card-total-negativo h3 {
+      color: rgba(255,255,255,0.9);
+    }
+
+    section {
+      background: var(--card);
+      padding: 25px;
+      border-radius: 18px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.06);
+    }
+
+    section h2 {
+      margin-top: 0;
+      font-size: 1.3rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-weight: 700;
+    }
+
+    .filtros {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 15px;
+      flex-wrap: wrap;
+    }
+
+    .filtros input, .filtros select {
+      padding: 8px 12px;
+      border-radius: 8px;
+      border: 1px solid #e5e7eb;
+      font-size: 0.85rem;
+      width: auto;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 15px;
+    }
+
+    th, td {
+      padding: 12px;
+      text-align: left;
+      font-size: 0.9rem;
+    }
+
+    th {
+      color: var(--muted);
+      font-weight: 600;
+      border-bottom: 2px solid #e5e7eb;
+    }
+
+    tr:not(:last-child) td {
+      border-bottom: 1px solid #f1f5f9;
+    }
+
+    tbody tr:hover {
+      background: #f9fafb;
+    }
+
+    input, select, textarea {
+      width: 100%;
+      padding: 10px;
+      border-radius: 8px;
+      border: 1px solid #e5e7eb;
+      font-size: 0.9rem;
+      transition: border 0.2s;
+    }
+
+    input:focus, select:focus, textarea:focus {
+      outline: none;
+      border-color: var(--primary);
+    }
+
+    textarea {
+      resize: vertical;
+      min-height: 60px;
+    }
+
+    .btn {
+      padding: 10px 16px;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      font-size: 0.85rem;
+      font-weight: 600;
+      transition: all 0.2s;
+    }
+
+    .btn-primary {
+      background: var(--primary);
+      color: white;
+    }
+
+    .btn-primary:hover {
+      background: var(--primary-dark);
+    }
+
+    .btn-danger {
+      background: var(--danger);
+      color: white;
+      padding: 6px 12px;
+      font-size: 0.8rem;
+    }
+
+    .btn:hover {
+      transform: translateY(-1px);
+    }
+
+    .modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.5);
+      z-index: 1000;
+      align-items: center;
+      justify-content: center;
+      backdrop-filter: blur(4px);
+    }
+
+    .modal.active {
+      display: flex;
+    }
+
+    .modal-content {
+      background: white;
+      padding: 30px;
+      border-radius: 16px;
+      max-width: 500px;
+      width: 90%;
+      max-height: 90vh;
+      overflow-y: auto;
+      animation: slideUp 0.3s ease;
+    }
+
+    @keyframes slideUp {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .modal-content h3 {
+      margin-top: 0;
+      font-size: 1.5rem;
+      font-weight: 700;
+    }
+
+    .form-group {
+      margin-bottom: 15px;
+    }
+
+    .form-group label {
+      display: block;
+      margin-bottom: 5px;
+      color: var(--secondary);
+      font-size: 0.9rem;
+      font-weight: 600;
+    }
+
+    .form-group small {
+      color: var(--muted);
+      font-size: 0.8rem;
+      display: block;
+      margin-top: 3px;
+    }
+
+    .modal-actions {
+      display: flex;
+      gap: 10px;
+      margin-top: 20px;
+    }
+
+    .chart-container {
+      margin-top: 20px;
+      min-height: 200px;
+    }
+
+    .chart-bar {
+      display: flex;
+      align-items: center;
+      margin-bottom: 10px;
+    }
+
+    .chart-label {
+      width: 150px;
+      font-size: 0.85rem;
+      color: var(--muted);
+    }
+
+    .chart-progress {
+      flex: 1;
+      height: 25px;
+      background: #f1f5f9;
+      border-radius: 8px;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .chart-fill {
+      height: 100%;
+      background: linear-gradient(90deg, var(--primary), #3b82f6);
+      display: flex;
+      align-items: center;
+      padding: 0 10px;
+      color: white;
+      font-size: 0.75rem;
+      font-weight: 600;
+      transition: width 0.3s;
+    }
+
+    footer {
+      text-align: center;
+      padding: 20px;
+      font-size: 0.8rem;
+      color: var(--muted);
+    }
+
+    .empty-state {
+      text-align: center;
+      padding: 40px;
+      color: var(--muted);
+    }
+
+    .badge {
+      display: inline-block;
+      padding: 4px 8px;
+      border-radius: 6px;
+      font-size: 0.75rem;
+      font-weight: 500;
+    }
+
+    .notificacion {
+      padding: 20px;
+      border-radius: 16px;
+      margin-bottom: 20px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+      animation: slideDown 0.5s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    @keyframes slideDown {
+      from {
+        opacity: 0;
+        transform: translateY(-20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .notificacion::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 5px;
+      height: 100%;
+    }
+
+    .notificacion-success {
+      background: linear-gradient(135deg, #dcfce7, #bbf7d0);
+      border-left: 5px solid var(--success);
+    }
+
+    .notificacion-warning {
+      background: linear-gradient(135deg, #fef3c7, #fde68a);
+      border-left: 5px solid var(--warning);
+    }
+
+    .notificacion-danger {
+      background: linear-gradient(135deg, #fee2e2, #fecaca);
+      border-left: 5px solid var(--danger);
+    }
+
+    .notificacion-info {
+      background: linear-gradient(135deg, #dbeafe, #bfdbfe);
+      border-left: 5px solid var(--primary);
+    }
+
+    .notificacion h4 {
+      margin: 0 0 8px 0;
+      font-size: 1.1rem;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .notificacion p {
+      margin: 5px 0;
+      font-size: 0.9rem;
+      line-height: 1.5;
+    }
+
+    .notificacion strong {
+      font-weight: 700;
+    }
+
+    .porcentaje-badge {
+      display: inline-block;
+      padding: 4px 10px;
+      border-radius: 20px;
+      font-weight: 700;
+      font-size: 0.85rem;
+      margin: 0 3px;
+    }
+
+    .porcentaje-up {
+      background: rgba(220, 38, 38, 0.2);
+      color: #991b1b;
+    }
+
+    .porcentaje-down {
+      background: rgba(22, 163, 74, 0.2);
+      color: #15803d;
+    }
+
+    .cerrar-notificacion {
+      position: absolute;
+      top: 15px;
+      right: 15px;
+      background: rgba(0,0,0,0.1);
+      border: none;
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      cursor: pointer;
+      font-size: 16px;
+      line-height: 1;
+      color: var(--secondary);
+      transition: background 0.2s;
+    }
+
+    .cerrar-notificacion:hover {
+      background: rgba(0,0,0,0.2);
+    }
+
+    .notas-cell {
+      max-width: 200px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      color: var(--muted);
+      font-size: 0.8rem;
+    }
+
+    .monto-display {
+      font-weight: 700;
+      font-size: 1rem;
+    }
+
+    .optional-label {
+      color: var(--muted);
+      font-size: 0.75rem;
+      font-weight: 400;
+      margin-left: 5px;
+    }
+
+    @media (max-width: 768px) {
+      header h1 {
+        font-size: 1.8rem;
+      }
+
+      .cards {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .card p {
+        font-size: 1.4rem;
+      }
+
+      table {
+        font-size: 0.8rem;
+      }
+
+      th, td {
+        padding: 8px 4px;
+      }
+
+      .notas-cell {
+        display: none;
+      }
+
+      .filtros {
+        flex-direction: column;
+      }
+
+      .filtros input, .filtros select {
+        width: 100%;
+      }
+
+      .modal-content {
+        padding: 20px;
+        width: 95%;
+      }
+
+      .chart-label {
+        width: 100px;
+        font-size: 0.75rem;
+      }
+
+      .chart-fill {
+        font-size: 0.7rem;
+        padding: 0 5px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <h1>💰 MoneYOU</h1>
+  <p>Gestiona tu dinero con claridad y control</p>
+</header>
+
+<main>
+
+  <div id="balanceInicialBanner" class="balance-inicial-banner" onclick="mostrarModalBalanceInicial()">
+    <h3>⚙️ Configura tu Balance Inicial</h3>
+    <p>Establece cuánto dinero tienes actualmente para empezar a rastrear tus finanzas</p>
+  </div>
+
+  <!-- Notificación de Comparación Mensual -->
+  <div id="notificacionComparacion" style="display: none;"></div>
+
+  <div class="cards">
+    <div id="cardTotalAcumulado" class="card card-total-acumulado" style="cursor: pointer;" onclick="mostrarModalBalanceInicial()" title="Click para editar tu balance inicial">
+      <h3>💎 Total Acumulado</h3>
+      <p id="totalAcumulado">$0.00</p>
+      <small style="font-size: 0.75rem; color: rgba(255,255,255,0.8); display: block; margin-top: 5px;">
+        <span id="balanceInicialTexto">Balance inicial: $0.00</span> · Click para editar
+      </small>
+    </div>
+    <div class="card">
+      <h3>📈 Total Ingresos</h3>
+      <p id="totalIngresos" class="success">$0.00</p>
+    </div>
+    <div class="card">
+      <h3>📉 Total Gastos</h3>
+      <p id="totalGastos" class="danger">$0.00</p>
+    </div>
+    <div class="card">
+      <h3>⚖️ Balance Mensual</h3>
+      <p id="balance">$0.00</p>
+    </div>
+  </div>
+
+  <section>
+    <h2>
+      <span>📊 Gastos por Categoría</span>
+    </h2>
+    <div id="chartContainer" class="chart-container"></div>
+  </section>
+
+  <section>
+    <h2>
+      <span>💰 Ingresos</span>
+      <button class="btn btn-primary" onclick="mostrarModalIngreso()">+ Agregar</button>
+    </h2>
+    <div class="filtros">
+      <input type="month" id="filtroMesIngresos" onchange="cargarDatos()">
+      <button class="btn" onclick="limpiarFiltros('ingresos')" style="background: #e5e7eb; color: var(--secondary)">Limpiar</button>
+    </div>
+    <table>
+      <thead>
+        <tr>
+          <th>Fecha</th>
+          <th>Descripción</th>
+          <th>Monto</th>
+          <th>Notas</th>
+          <th>Acciones</th>
+        </tr>
+      </thead>
+      <tbody id="tablaIngresos"></tbody>
+    </table>
+  </section>
+
+  <section>
+    <h2>
+      <span>💳 Gastos</span>
+      <button class="btn btn-primary" onclick="mostrarModalGasto()">+ Agregar</button>
+    </h2>
+    <div class="filtros">
+      <input type="month" id="filtroMesGastos" onchange="cargarDatos()">
+      <select id="filtroCategoriaGastos" onchange="cargarDatos()">
+        <option value="">Todas las categorías</option>
+        <option>🍽️ Comida</option>
+        <option>🚌 Transporte</option>
+        <option>🏠 Vivienda</option>
+        <option>💡 Servicios</option>
+        <option>🌐 Internet</option>
+        <option>📚 Educación</option>
+        <option>💊 Salud</option>
+        <option>🎮 Ocio</option>
+        <option>👕 Ropa</option>
+        <option>📦 Otros</option>
+      </select>
+      <button class="btn" onclick="limpiarFiltros('gastos')" style="background: #e5e7eb; color: var(--secondary)">Limpiar</button>
+    </div>
+    <table>
+      <thead>
+        <tr>
+          <th>Fecha</th>
+          <th>Descripción</th>
+          <th>Categoría</th>
+          <th>Monto</th>
+          <th>Notas</th>
+          <th>Acciones</th>
+        </tr>
+      </thead>
+      <tbody id="tablaGastos"></tbody>
+    </table>
+  </section>
+
+</main>
+
+<footer>
+  Hecho por Jonas · MoneyFlow © 2024
+</footer>
+
+<!-- Modal Balance Inicial -->
+<div id="modalBalanceInicial" class="modal">
+  <div class="modal-content">
+    <h3>💎 Balance Inicial</h3>
+    <p style="color: var(--muted); margin-bottom: 20px;">
+      Ingresa cuánto dinero tienes actualmente. Esto te ayudará a ver tu progreso financiero desde hoy.
+    </p>
+    <form id="formBalanceInicial" onsubmit="guardarBalanceInicial(event)">
+      <div class="form-group">
+        <label>Monto Actual</label>
+        <input type="number" id="balanceInicialMonto" step="0.01" placeholder="0.00" required>
+        <small>El dinero que tienes ahora en total (efectivo, banco, etc.)</small>
+      </div>
+      <div class="modal-actions">
+        <button type="submit" class="btn btn-primary">Guardar</button>
+        <button type="button" class="btn" onclick="cerrarModal('modalBalanceInicial')" style="background: #e5e7eb; color: var(--secondary)">Cancelar</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- Modal Ingreso -->
+<div id="modalIngreso" class="modal">
+  <div class="modal-content">
+    <h3>💰 Nuevo Ingreso</h3>
+    <form id="formIngreso" onsubmit="agregarIngreso(event)">
+      <div class="form-group">
+        <label>Fecha <span class="optional-label">(opcional)</span></label>
+        <input type="date" id="ingresoFecha">
+        <small>Si no seleccionas fecha, se usará la fecha actual</small>
+      </div>
+      <div class="form-group">
+        <label>Descripción</label>
+        <input type="text" id="ingresoDescripcion" placeholder="Ej: Sueldo mensual" required>
+      </div>
+      <div class="form-group">
+        <label>Monto</label>
+        <input type="number" id="ingresoMonto" step="0.01" placeholder="0.00" required>
+      </div>
+      <div class="form-group">
+        <label>Notas <span class="optional-label">(opcional)</span></label>
+        <textarea id="ingresoNotas" placeholder="Agrega detalles adicionales..."></textarea>
+      </div>
+      <div class="modal-actions">
+        <button type="submit" class="btn btn-primary">Guardar</button>
+        <button type="button" class="btn" onclick="cerrarModal('modalIngreso')" style="background: #e5e7eb; color: var(--secondary)">Cancelar</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- Modal Gasto -->
+<div id="modalGasto" class="modal">
+  <div class="modal-content">
+    <h3>💳 Nuevo Gasto</h3>
+    <form id="formGasto" onsubmit="agregarGasto(event)">
+      <div class="form-group">
+        <label>Fecha <span class="optional-label">(opcional)</span></label>
+        <input type="date" id="gastoFecha">
+        <small>Si no seleccionas fecha, se usará la fecha actual</small>
+      </div>
+      <div class="form-group">
+        <label>Descripción</label>
+        <input type="text" id="gastoDescripcion" placeholder="Ej: Compra en supermercado" required>
+      </div>
+      <div class="form-group">
+        <label>Categoría</label>
+        <select id="gastoCategoria" required>
+          <option value="">Selecciona una categoría</option>
+          <option>🍽️ Comida</option>
+          <option>🚌 Transporte</option>
+          <option>🏠 Vivienda</option>
+          <option>💡 Servicios</option>
+          <option>🌐 Internet</option>
+          <option>📚 Educación</option>
+          <option>💊 Salud</option>
+          <option>🎮 Ocio</option>
+          <option>👕 Ropa</option>
+          <option>📦 Otros</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>Monto</label>
+        <input type="number" id="gastoMonto" step="0.01" placeholder="0.00" required>
+      </div>
+      <div class="form-group">
+        <label>Notas <span class="optional-label">(opcional)</span></label>
+        <textarea id="gastoNotas" placeholder="Agrega detalles adicionales..."></textarea>
+      </div>
+      <div class="modal-actions">
+        <button type="submit" class="btn btn-primary">Guardar</button>
+        <button type="button" class="btn" onclick="cerrarModal('modalGasto')" style="background: #e5e7eb; color: var(--secondary)">Cancelar</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<script>
+  let ingresos = [];
+  let gastos = [];
+  let balanceInicial = 0;
+
+  // Cargar datos al iniciar
+  window.onload = function() {
+    cargarDesdeLocalStorage();
+    
+    // Si no hay balance inicial configurado, mostrar banner
+    if (balanceInicial === 0 && ingresos.length === 0 && gastos.length === 0) {
+      document.getElementById('balanceInicialBanner').style.display = 'block';
+    } else {
+      document.getElementById('balanceInicialBanner').style.display = 'none';
+    }
+    
+    // Registrar Service Worker para PWA
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('data:text/javascript,');
+    }
+  };
+
+  function cargarDesdeLocalStorage() {
+    const ingresosGuardados = localStorage.getItem('moneyflow_ingresos');
+    const gastosGuardados = localStorage.getItem('moneyflow_gastos');
+    const balanceGuardado = localStorage.getItem('moneyflow_balance_inicial');
+    
+    if (ingresosGuardados) ingresos = JSON.parse(ingresosGuardados);
+    if (gastosGuardados) gastos = JSON.parse(gastosGuardados);
+    if (balanceGuardado) balanceInicial = parseFloat(balanceGuardado);
+    
+    cargarDatos();
+  }
+
+  function guardarEnLocalStorage() {
+    localStorage.setItem('moneyflow_ingresos', JSON.stringify(ingresos));
+    localStorage.setItem('moneyflow_gastos', JSON.stringify(gastos));
+    localStorage.setItem('moneyflow_balance_inicial', balanceInicial.toString());
+  }
+
+  function formatearMoneda(valor) {
+    return new Intl.NumberFormat('es-DO', {
+      style: 'currency',
+      currency: 'DOP',
+      minimumFractionDigits: 2,
+      maximumFractionDigits: 2
+    }).format(valor);
+  }
+
+  function mostrarModalBalanceInicial() {
+    document.getElementById('balanceInicialMonto').value = balanceInicial || '';
+    document.getElementById('modalBalanceInicial').classList.add('active');
+  }
+
+  function guardarBalanceInicial(event) {
+    event.preventDefault();
+    balanceInicial = parseFloat(document.getElementById('balanceInicialMonto').value);
+    guardarEnLocalStorage();
+    cargarDatos();
+    cerrarModal('modalBalanceInicial');
+    document.getElementById('balanceInicialBanner').style.display = 'none';
+  }
+
+  function mostrarModalIngreso() {
+    document.getElementById('modalIngreso').classList.add('active');
+  }
+
+  function mostrarModalGasto() {
+    document.getElementById('modalGasto').classList.add('active');
+  }
+
+  function cerrarModal(idModal) {
+    document.getElementById(idModal).classList.remove('active');
+  }
+
+  function agregarIngreso(event) {
+    event.preventDefault();
+    
+    let fechaSeleccionada = document.getElementById('ingresoFecha').value;
+    if (!fechaSeleccionada) {
+      const hoy = new Date();
+      fechaSeleccionada = hoy.toISOString().split('T')[0];
+    }
+    
+    const ingreso = {
+      id: Date.now(),
+      fecha: fechaSeleccionada,
+      descripcion: document.getElementById('ingresoDescripcion').value,
+      monto: parseFloat(document.getElementById('ingresoMonto').value),
+      notas: document.getElementById('ingresoNotas').value
+    };
+
+    ingresos.push(ingreso);
+    guardarEnLocalStorage();
+    cargarDatos();
+    
+    document.getElementById('formIngreso').reset();
+    cerrarModal('modalIngreso');
+  }
+
+  function agregarGasto(event) {
+    event.preventDefault();
+    
+    let fechaSeleccionada = document.getElementById('gastoFecha').value;
+    if (!fechaSeleccionada) {
+      const hoy = new Date();
+      fechaSeleccionada = hoy.toISOString().split('T')[0];
+    }
+    
+    const gasto = {
+      id: Date.now(),
+      fecha: fechaSeleccionada,
+      descripcion: document.getElementById('gastoDescripcion').value,
+      categoria: document.getElementById('gastoCategoria').value,
+      monto: parseFloat(document.getElementById('gastoMonto').value),
+      notas: document.getElementById('gastoNotas').value
+    };
+
+    gastos.push(gasto);
+    guardarEnLocalStorage();
+    cargarDatos();
+    
+    document.getElementById('formGasto').reset();
+    cerrarModal('modalGasto');
+  }
+
+  function eliminarIngreso(id) {
+    if (confirm('¿Seguro que quieres eliminar este ingreso?')) {
+      ingresos = ingresos.filter(i => i.id !== id);
+      guardarEnLocalStorage();
+      cargarDatos();
+    }
+  }
+
+  function eliminarGasto(id) {
+    if (confirm('¿Seguro que quieres eliminar este gasto?')) {
+      gastos = gastos.filter(g => g.id !== id);
+      guardarEnLocalStorage();
+      cargarDatos();
+    }
+  }
+
+  function cargarDatos() {
+    const filtroMesIngresos = document.getElementById('filtroMesIngresos').value;
+    const filtroMesGastos = document.getElementById('filtroMesGastos').value;
+    const filtroCategoriaGastos = document.getElementById('filtroCategoriaGastos').value;
+
+    // Filtrar ingresos
+    let ingresosFiltrados = ingresos;
+    if (filtroMesIngresos) {
+      ingresosFiltrados = ingresos.filter(i => i.fecha.startsWith(filtroMesIngresos));
+    }
+
+    // Filtrar gastos
+    let gastosFiltrados = gastos;
+    if (filtroMesGastos) {
+      gastosFiltrados = gastosFiltrados.filter(g => g.fecha.startsWith(filtroMesGastos));
+    }
+    if (filtroCategoriaGastos) {
+      gastosFiltrados = gastosFiltrados.filter(g => g.categoria === filtroCategoriaGastos);
+    }
+
+    // Renderizar tablas
+    renderizarIngresos(ingresosFiltrados);
+    renderizarGastos(gastosFiltrados);
+    
+    // Calcular totales
+    calcularTotales(ingresosFiltrados, gastosFiltrados);
+    renderizarGrafico(gastosFiltrados);
+    
+    // Mostrar notificación de comparación mensual
+    mostrarComparacionMensual();
+  }
+
+  function renderizarIngresos(lista) {
+    const tbody = document.getElementById('tablaIngresos');
+    
+    if (lista.length === 0) {
+      tbody.innerHTML = '<tr><td colspan="5" class="empty-state">No hay ingresos registrados</td></tr>';
+      return;
+    }
+
+    tbody.innerHTML = lista
+      .sort((a, b) => new Date(b.fecha) - new Date(a.fecha))
+      .map(i => `
+        <tr>
+          <td>${formatearFecha(i.fecha)}</td>
+          <td><strong>${i.descripcion}</strong></td>
+          <td style="color: var(--success);" class="monto-display">${formatearMoneda(i.monto)}</td>
+          <td class="notas-cell" title="${i.notas || ''}">${i.notas || '-'}</td>
+          <td>
+            <button class="btn btn-danger" onclick="eliminarIngreso(${i.id})">🗑️</button>
+          </td>
+        </tr>
+      `).join('');
+  }
+
+  function renderizarGastos(lista) {
+    const tbody = document.getElementById('tablaGastos');
+    
+    if (lista.length === 0) {
+      tbody.innerHTML = '<tr><td colspan="6" class="empty-state">No hay gastos registrados</td></tr>';
+      return;
+    }
+
+    tbody.innerHTML = lista
+      .sort((a, b) => new Date(b.fecha) - new Date(a.fecha))
+      .map(g => `
+        <tr>
+          <td>${formatearFecha(g.fecha)}</td>
+          <td><strong>${g.descripcion}</strong></td>
+          <td><span class="badge" style="background: #f1f5f9;">${g.categoria}</span></td>
+          <td style="color: var(--danger);" class="monto-display">${formatearMoneda(g.monto)}</td>
+          <td class="notas-cell" title="${g.notas || ''}">${g.notas || '-'}</td>
+          <td>
+            <button class="btn btn-danger" onclick="eliminarGasto(${g.id})">🗑️</button>
+          </td>
+        </tr>
+      `).join('');
+  }
+
+  function calcularTotales(ingresosFiltrados, gastosFiltrados) {
+    // Calcular totales históricos (SIN filtros)
+    const totalIngresosHistorico = ingresos.reduce((sum, i) => sum + i.monto, 0);
+    const totalGastosHistorico = gastos.reduce((sum, g) => sum + g.monto, 0);
+    const totalAcumulado = balanceInicial + totalIngresosHistorico - totalGastosHistorico;
+
+    // Calcular totales filtrados (balance mensual)
+    const totalIngresos = ingresosFiltrados.reduce((sum, i) => sum + i.monto, 0);
+    const totalGastos = gastosFiltrados.reduce((sum, g) => sum + g.monto, 0);
+    const balance = totalIngresos - totalGastos;
+
+    // Mostrar total acumulado y balance inicial
+    document.getElementById('totalAcumulado').textContent = formatearMoneda(totalAcumulado);
+    document.getElementById('balanceInicialTexto').textContent = 'Balance inicial: ' + formatearMoneda(balanceInicial);
+    
+    // Cambiar color de tarjeta según si está en números rojos
+    const cardAcumulado = document.getElementById('cardTotalAcumulado');
+    if (totalAcumulado < 0) {
+      cardAcumulado.classList.add('card-total-negativo');
+      cardAcumulado.classList.remove('card-total-acumulado');
+    } else {
+      cardAcumulado.classList.add('card-total-acumulado');
+      cardAcumulado.classList.remove('card-total-negativo');
+    }
+    
+    // Mostrar totales filtrados
+    document.getElementById('totalIngresos').textContent = formatearMoneda(totalIngresos);
+    document.getElementById('totalGastos').textContent = formatearMoneda(totalGastos);
+
+    const balEl = document.getElementById('balance');
+    balEl.textContent = formatearMoneda(balance);
+    balEl.className = balance >= 0 ? 'success' : 'danger';
+  }
+
+  function renderizarGrafico(gastosFiltrados) {
+    const container = document.getElementById('chartContainer');
+    
+    if (gastosFiltrados.length === 0) {
+      container.innerHTML = '<div class="empty-state">No hay datos para mostrar</div>';
+      return;
+    }
+
+    // Agrupar por categoría
+    const porCategoria = {};
+    gastosFiltrados.forEach(g => {
+      if (!porCategoria[g.categoria]) porCategoria[g.categoria] = 0;
+      porCategoria[g.categoria] += g.monto;
+    });
+
+    const totalGastos = gastosFiltrados.reduce((sum, g) => sum + g.monto, 0);
+
+    // Ordenar por monto
+    const categorias = Object.entries(porCategoria)
+      .sort((a, b) => b[1] - a[1]);
+
+    container.innerHTML = categorias.map(([cat, monto]) => {
+      const porcentaje = (monto / totalGastos * 100).toFixed(1);
+      return `
+        <div class="chart-bar">
+          <div class="chart-label">${cat}</div>
+          <div class="chart-progress">
+            <div class="chart-fill" style="width: ${porcentaje}%">
+              ${formatearMoneda(monto)} (${porcentaje}%)
+            </div>
+          </div>
+        </div>
+      `;
+    }).join('');
+  }
+
+  function formatearFecha(fecha) {
+    const f = new Date(fecha + 'T00:00:00');
+    return f.toLocaleDateString('es-ES', { day: '2-digit', month: 'short', year: 'numeric' });
+  }
+
+  function limpiarFiltros(tipo) {
+    if (tipo === 'ingresos') {
+      document.getElementById('filtroMesIngresos').value = '';
+    } else {
+      document.getElementById('filtroMesGastos').value = '';
+      document.getElementById('filtroCategoriaGastos').value = '';
+    }
+    cargarDatos();
+  }
+
+  function mostrarComparacionMensual() {
+    const contenedor = document.getElementById('notificacionComparacion');
+    
+    // Obtener mes actual y anterior
+    const hoy = new Date();
+    const mesActual = `${hoy.getFullYear()}-${String(hoy.getMonth() + 1).padStart(2, '0')}`;
+    
+    const fechaAnterior = new Date(hoy.getFullYear(), hoy.getMonth() - 1, 1);
+    const mesAnterior = `${fechaAnterior.getFullYear()}-${String(fechaAnterior.getMonth() + 1).padStart(2, '0')}`;
+    
+    // Calcular gastos del mes actual
+    const gastosActuales = gastos.filter(g => g.fecha.startsWith(mesActual));
+    const totalGastosActuales = gastosActuales.reduce((sum, g) => sum + g.monto, 0);
+    
+    // Calcular gastos del mes anterior
+    const gastosAnteriores = gastos.filter(g => g.fecha.startsWith(mesAnterior));
+    const totalGastosAnteriores = gastosAnteriores.reduce((sum, g) => sum + g.monto, 0);
+    
+    // Calcular ingresos para análisis adicional
+    const ingresosActuales = ingresos.filter(i => i.fecha.startsWith(mesActual));
+    const totalIngresosActuales = ingresosActuales.reduce((sum, i) => sum + i.monto, 0);
+    
+    const ingresosAnteriores = ingresos.filter(i => i.fecha.startsWith(mesAnterior));
+    const totalIngresosAnteriores = ingresosAnteriores.reduce((sum, i) => sum + i.monto, 0);
+    
+    // Si no hay datos del mes anterior o actual, no mostrar notificación
+    if (gastosAnteriores.length === 0 || gastosActuales.length === 0) {
+      contenedor.style.display = 'none';
+      return;
+    }
+    
+    // Calcular diferencia y porcentaje
+    const diferencia = totalGastosActuales - totalGastosAnteriores;
+    const porcentaje = totalGastosAnteriores > 0 
+      ? ((diferencia / totalGastosAnteriores) * 100).toFixed(1)
+      : 0;
+    
+    const ahorro = totalIngresosActuales - totalGastosActuales;
+    const ahorroAnterior = totalIngresosAnteriores - totalGastosAnteriores;
+    
+    let tipoNotificacion = '';
+    let icono = '';
+    let titulo = '';
+    let mensaje = '';
+    let consejo = '';
+    
+    // Determinar tipo de notificación
+    if (diferencia > 0) {
+      // Gastas MÁS que el mes anterior
+      tipoNotificacion = 'notificacion-danger';
+      icono = '⚠️';
+      titulo = '¡Atención! Gastas más que el mes anterior';
+      mensaje = `Has gastado <span class="porcentaje-badge porcentaje-up">+${porcentaje}%</span> más este mes. 
+                 Gastaste <strong>${formatearMoneda(totalGastosActuales)}</strong> comparado con 
+                 <strong>${formatearMoneda(totalGastosAnteriores)}</strong> del mes pasado.`;
+      
+      if (Math.abs(parseFloat(porcentaje)) > 50) {
+        consejo = '💡 <strong>Consejo:</strong> Tus gastos aumentaron significativamente. Revisa tus categorías y considera ajustar tu presupuesto.';
+      } else if (Math.abs(parseFloat(porcentaje)) > 20) {
+        consejo = '💡 <strong>Consejo:</strong> Considera revisar en qué categorías gastaste más y si son necesarios.';
+      } else {
+        consejo = '💡 <strong>Tip:</strong> Un pequeño aumento es normal, pero mantente atento a tus hábitos de consumo.';
+      }
+      
+    } else if (diferencia < 0) {
+      // Gastas MENOS que el mes anterior
+      tipoNotificacion = 'notificacion-success';
+      icono = '🎉';
+      titulo = '¡Excelente! Gastas menos que el mes anterior';
+      mensaje = `Has reducido tus gastos en <span class="porcentaje-badge porcentaje-down">${Math.abs(parseFloat(porcentaje))}%</span>. 
+                 Gastaste <strong>${formatearMoneda(totalGastosActuales)}</strong> comparado con 
+                 <strong>${formatearMoneda(totalGastosAnteriores)}</strong> del mes pasado.`;
+      
+      if (ahorro > ahorroAnterior) {
+        consejo = '💰 <strong>¡Genial!</strong> Estás ahorrando más que el mes anterior. ¡Sigue así!';
+      } else {
+        consejo = '👍 <strong>Bien hecho!</strong> Reducir gastos es el primer paso hacia una mejor salud financiera.';
+      }
+      
+    } else {
+      // Gastas IGUAL que el mes anterior
+      tipoNotificacion = 'notificacion-info';
+      icono = '📊';
+      titulo = 'Gastos estables';
+      mensaje = `Mantuviste tus gastos en <strong>${formatearMoneda(totalGastosActuales)}</strong>, 
+                 igual que el mes anterior.`;
+      consejo = '💡 <strong>Tip:</strong> La consistencia es buena. ¿Puedes identificar áreas donde reducir gastos?';
+    }
+    
+    // Análisis adicional de ahorro
+    let mensajeAhorro = '';
+    if (ahorro > 0 && ahorroAnterior > 0) {
+      const diferenciaAhorro = ahorro - ahorroAnterior;
+      if (diferenciaAhorro > 0) {
+        mensajeAhorro = `<p>✨ <strong>Bonus:</strong> Ahorraste ${formatearMoneda(Math.abs(diferenciaAhorro))} más que el mes pasado.</p>`;
+      }
+    }
+    
+    // Renderizar notificación
+    contenedor.innerHTML = `
+      <div class="notificacion ${tipoNotificacion}">
+        <button class="cerrar-notificacion" onclick="cerrarNotificacion()">×</button>
+        <h4>${icono} ${titulo}</h4>
+        <p>${mensaje}</p>
+        ${mensajeAhorro}
+        <p style="margin-top: 10px; padding-top: 10px; border-top: 1px solid rgba(0,0,0,0.1);">
+          ${consejo}
+        </p>
+      </div>
+    `;
+    
+    contenedor.style.display = 'block';
+  }
+  
+  function cerrarNotificacion() {
+    document.getElementById('notificacionComparacion').style.display = 'none';
+  }
+
+  // Cerrar modal al hacer clic fuera
+  window.onclick = function(event) {
+    if (event.target.classList.contains('modal')) {
+      event.target.classList.remove('active');
+    }
+  };
+</script>
+
+</body>
+</html>
